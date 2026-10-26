@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amon Kalan · Fresh local pre-orders in Roxas City, Capiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="accent-bar"></div>
+
+  <div class="page">
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="brand">
+        <h1>Amon Kalan</h1>
+        <p>Roxas City - Capiz</p>
+      </div>
+      <button class="cart-pill" id="cartPill" aria-label="Open cart">
+        Cart
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="hero-arc" aria-hidden="true"></div>
+        <p class="hero-eyebrow">A homegrown Roxas City kitchen</p>
+        <h2>Our Kitchen. Global Flavors. Everyday Comfort.</h2>
+        <p class="hero-copy">
+          Filipino comfort with a little world travel. Freshly scratch-cooked, made without artificial
+          preservatives, and packed in biodegradable kraft containers.
+        </p>
+        <a href="#menu" class="hero-btn">Explore the menu &rarr;</a>
+      </section>
+
+      <!-- ============ MENU + SIDEBAR ============ -->
+      <div class="content-grid">
+        <div class="menu-column">
+          <section id="menu">
+            <p class="eyebrow olive">The Amon Kalan menu</p>
+            <h2 class="section-title">Familiar roots. Unexpected combinations.</h2>
+            <p class="window-line">Pre-order window: <strong>4:00–8:00 PM</strong> &middot; fulfillment timing confirmed by the kitchen</p>
+            <p class="window-note">
+              Sample dishes for pre-order. Availability, final timing, and payment instructions are confirmed by the
+              kitchen.
+            </p>
+
+            <div class="menu-grid" id="menuGrid"><!-- filled by app.js --></div>
+
+            <!-- Add-ons -->
+            <section class="card addons-card">
+              <p class="eyebrow gold">Make it a meal</p>
+              <div class="addons-head">
+                <div>
+                  <h3 class="dish-title">Add-ons</h3>
+                  <p class="dish-desc">Build your order with a little extra comfort.</p>
+                </div>
+                <div class="stepper" data-add-on="Extra Rice" data-price="15">
+                  <button class="step-btn minus" aria-label="Remove one">&minus;</button>
+                  <span class="step-count">0</span>
+                  <button class="step-btn plus" aria-label="Add one">+</button>
+                </div>
+              </div>
+              <div class="addons-row">
+                <span>Extra Rice</span>
+                <span class="price-sm">&#8369;15</span>
+              </div>
+            </section>
+          </section>
+
+          <!-- ============ CHECK AN ORDER ============ -->
+          <section class="card check-card">
+            <h3 class="section-title sm">Check an order</h3>
+            <p class="check-intro">
+              Enter your private order number to see its current status. Keep it somewhere safe.
+            </p>
+            <label class="field-label" for="orderNumber">Order number</label>
+            <div class="check-row">
+              <input type="text" id="orderNumber" placeholder="AK-XXXXXXXXXXXXXX" autocomplete="off" />
+              <button class="btn small" id="checkStatusBtn">Check status</button>
+            </div>
+            <div id="statusResult" class="status-result" hidden></div>
+            <div class="visited-orders">
+              <h4>Orders from this visit</h4>
+              <ul id="visitedList">
+                <li class="empty">No orders submitted during this visit.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <!-- ============ CART SIDEBAR ============ -->
+        <aside class="sidebar">
+          <section class="card cart-card">
+            <div class="cart-head">
+              <h3><span class="cart-icon" aria-hidden="true">&#128722;</span> Your cart</h3>
+              <span class="muted" id="cartCount">0 items</span>
+            </div>
+            <div class="separator"></div>
+            <div id="cartItems">
+              <p class="cart-empty" id="cartEmpty">Your cart is waiting for something delicious.</p>
+            </div>
+            <div class="separator"></div>
+            <div class="cart-total">
+              <span><span class="cart-icon" aria-hidden="true">&#8369;</span> Food subtotal</span>
+              <strong id="cartSubtotal">&#8369;0</strong>
+            </div>
+          </section>
+
+          <section class="card order-card">
+            <h3 class="section-title sm">Request your order</h3>
+            <p class="order-intro">
+              This is a <strong>pre-order request</strong>, not an instant confirmation.
+              We'll confirm availability, timing, and payment details with you.
+            </p>
+            <form id="orderForm" novalidate>
+              <label class="field-label" for="custName">Your name</label>
+              <input type="text" id="custName" autocomplete="name" />
+
+              <label class="field-label" for="custNumber">Contact number</label>
+              <input type="tel" id="custNumber" autocomplete="tel" inputmode="numeric"
+                     placeholder="09XXXXXXXXX" maxlength="11" pattern="[0-9]{11}"
+                     title="11 digits, e.g. 09XXXXXXXXX" />
+
+              <span class="field-label">Fulfillment method</span>
+              <div class="radio-row">
+                <label class="radio"><input type="radio" name="fulfillment" value="Pickup" checked /> Pickup</label>
+                <label class="radio"><input type="radio" name="fulfillment" value="Delivery" /> Delivery</label>
+              </div>
+
+              <label class="field-label" for="pickupLocation">Pickup location</label>
+              <select id="pickupLocation">
+                <option>JCA Store pickup</option>
+                <option>Plaza Herv&aacute;s pickup</option>
+                <option>Capiz rotonda pickup</option>
+              </select>
+
+              <label class="field-label" for="paymentMethod">Preferred payment method</label>
+              <select id="paymentMethod">
+                <option>Cash on pickup</option>
+                <option>GCash</option>
+                <option>Bank transfer</option>
+              </select>
+
+              <fieldset class="cutlery-box">
+                <legend>Do you need cutlery?</legend>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="cutlery" value="Yes" checked /> Yes</label>
+                  <label class="radio"><input type="radio" name="cutlery" value="No" /> No</label>
+                </div>
+              </fieldset>
+
+              <label class="field-label" for="orderNotes">Order notes (optional)</label>
+              <textarea id="orderNotes" rows="3" placeholder="Allergies or preferred handoff time"></textarea>
+
+              <button type="submit" class="btn block">Review order request</button>
+            </form>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <p>Amon Kalan &middot; Fresh local pre-orders in Roxas City, Capiz</p>
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener">
+        Visit us on Facebook for daily menu updates and promos.
+      </a>
+    </footer>
+  </div>
+
+  <!-- ============ DISH DETAILS MODAL ============ -->
+  <div class="modal-backdrop" id="dishModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="dishModalClose" aria-label="Close">&times;</button>
+      <div class="modal-thumb" id="dishModalThumb"></div>
+      <div class="modal-body">
+        <p class="eyebrow gold" id="dishModalTag">Fusion favorite</p>
+        <h3 class="dish-title lg" id="dishModalName"></h3>
+        <p class="dish-desc" id="dishModalDesc"></p>
+        <div class="modal-footer">
+          <span class="price" id="dishModalPrice"></span>
+          <button class="btn" id="dishModalAdd">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REVIEW ORDER MODAL ============ -->
+  <div class="modal-backdrop" id="reviewModal" hidden>
+    <div class="modal review" role="dialog" aria-modal="true">
+      <button class="modal-close" id="reviewModalClose" aria-label="Close">&times;</button>
+      <h3 class="section-title sm">Review your order request</h3>
+      <p class="order-intro">Double-check the details below, then submit your request to the kitchen.</p>
+      <dl class="review-list" id="reviewList"></dl>
+      <div class="payment-qr" id="paymentQrBox" hidden>
+        <img id="paymentQrImg" alt="Payment QR code" width="180" height="180" />
+        <p class="qr-caption" id="paymentQrCaption"></p>
+        <p class="qr-note">Placeholder QR — the kitchen will confirm the exact payment details.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="reviewEdit">Go back &amp; edit</button>
+        <button class="btn" id="reviewSubmit">Submit request</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
